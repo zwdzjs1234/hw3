@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"github.com/gorilla/mux"
-	"os"
+	"strconv"
 	"encoding/json"	
 )
 
@@ -94,8 +94,8 @@ func getJSON(response http.ResponseWriter, request *http.Request) {
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusBadRequest)
 	}
-	fmt.Fprintf(response, strconv.Itoa(Credential.username), "\n")
-	fmt.Fprintf(response, strconv.Itoa(Credential.passowrd), "\n")
+	fmt.Fprintf(response, strconv.Itoa(credential.username), "\n")
+	fmt.Fprintf(response, strconv.Itoa(credential.passowrd), "\n")
 	return 
 }
 
