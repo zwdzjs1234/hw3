@@ -91,10 +91,10 @@ func getJSON(response http.ResponseWriter, request *http.Request) {
 	err := json.NewDecoder(request.Body).Decode(&credential)
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusBadRequest)
+		return
 	}
 	fmt.Fprintf(response, credential.Username+"\n")
 	fmt.Fprintf(response, credential.Password+"\n")
-	return
 }
 
 func signup(response http.ResponseWriter, request *http.Request) {
