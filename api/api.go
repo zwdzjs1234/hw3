@@ -55,7 +55,7 @@ func getCookie(response http.ResponseWriter, request *http.Request) {
 	}
 	accessToken := cookie.Value
 	fmt.Fprintf(response, accessToken)
-	return
+	
 }
 
 func getQuery(response http.ResponseWriter, request *http.Request) {
@@ -96,7 +96,7 @@ func getJSON(response http.ResponseWriter, request *http.Request) {
 	}
 	fmt.Fprintf(response, strconv.Itoa(credential.username), "\n")
 	fmt.Fprintf(response, strconv.Itoa(credential.passowrd), "\n")
-	return 
+	
 }
 
 func signup(response http.ResponseWriter, request *http.Request) {
