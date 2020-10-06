@@ -50,10 +50,10 @@ func getCookie(response http.ResponseWriter, request *http.Request) {
 	cookie, err := request.Cookie("access_token")
 	if err != nil {
 		fmt.Fprintf(response, "")
+		return
 	}
 	accessToken := cookie.Value
 	fmt.Fprintf(response, accessToken)
-
 }
 
 func getQuery(response http.ResponseWriter, request *http.Request) {
