@@ -237,9 +237,9 @@ func updatePassword(response http.ResponseWriter, request *http.Request) {
 		http.Error(response, "Empty input", http.StatusBadRequest)
 		return
 	}
-	for _, s := range arr {
+	for i, s := range arr {
 		if s.Username == credential.Username {
-			s.Password = credential.Password
+			arr[i].Password = credential.Password
 			return
 		}
 	}
