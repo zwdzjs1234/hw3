@@ -1,13 +1,12 @@
 package api
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
-	"github.com/gorilla/mux"
-	"strconv"
-	"encoding/json"	
-)
 
+	"github.com/gorilla/mux"
+)
 
 //Declare a global array of Credentials
 //See credentials.go
@@ -15,14 +14,13 @@ import (
 /*YOUR CODE HERE*/
 var arr []Credentials
 
-
 func RegisterRoutes(router *mux.Router) error {
 
 	/*
 
-	Fill out the appropriate get methods for each of the requests, based on the nature of the request.
+		Fill out the appropriate get methods for each of the requests, based on the nature of the request.
 
-	Think about whether you're reading, writing, or updating for each request
+		Think about whether you're reading, writing, or updating for each request
 
 
 	*/
@@ -30,7 +28,7 @@ func RegisterRoutes(router *mux.Router) error {
 	router.HandleFunc("/api/getCookie", getCookie).Methods(http.MethodGet)
 	router.HandleFunc("/api/getQuery", getQuery).Methods(http.MethodGet)
 	router.HandleFunc("/api/getJSON", getJSON).Methods(http.MethodGet)
-	
+
 	router.HandleFunc("/api/signup", signup).Methods(http.MethodPost)
 	router.HandleFunc("/api/getIndex", getIndex).Methods(http.MethodGet)
 	router.HandleFunc("/api/getpw", getPassword).Methods(http.MethodGet)
@@ -55,7 +53,7 @@ func getCookie(response http.ResponseWriter, request *http.Request) {
 	}
 	accessToken := cookie.Value
 	fmt.Fprintf(response, accessToken)
-	
+
 }
 
 func getQuery(response http.ResponseWriter, request *http.Request) {
@@ -66,9 +64,9 @@ func getQuery(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
-	userID := r.URL.Query().Get("userID")	
+	userID := request.URL.Query().Get("userID")
 	fmt.Fprintf(response, userID)
-	
+
 }
 
 func getJSON(response http.ResponseWriter, request *http.Request) {
@@ -84,7 +82,7 @@ func getJSON(response http.ResponseWriter, request *http.Request) {
 		Decode this json file into an instance of Credentials.
 
 		Then, write the username and password to the response, separated by a newline.request
-		
+
 		Make sure to error check! If there are any errors, call http.Error(), and pass in a "http.StatusBadRequest" What kind of errors can we expect here?
 	*/
 
@@ -94,9 +92,9 @@ func getJSON(response http.ResponseWriter, request *http.Request) {
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusBadRequest)
 	}
-	fmt.Fprintf(response, strconv.Itoa(credential.username), "\n")
-	fmt.Fprintf(response, strconv.Itoa(credential.passowrd), "\n")
-	
+	fmt.Fprintf(response, credential.Username+"\n")
+	fmt.Fprintf(response, credential.Password+"\n")
+	return
 }
 
 func signup(response http.ResponseWriter, request *http.Request) {
@@ -132,7 +130,7 @@ func getIndex(response http.ResponseWriter, request *http.Request) {
 		Decode this json file into an instance of Credentials. (What happens when we don't have all the fields? Does it matter in this case?)
 
 		Return the array index of the Credentials object in the global Credentials array
-		
+
 		The index will be of type integer, but we can only write strings to the response. What library and function was used to get around this?
 
 		Make sure to error check! If there are any errors, call http.Error(), and pass in a "http.StatusBadRequest" What kind of errors can we expect here?
@@ -161,8 +159,6 @@ func getPassword(response http.ResponseWriter, request *http.Request) {
 	/*YOUR CODE HERE*/
 }
 
-
-
 func updatePassword(response http.ResponseWriter, request *http.Request) {
 
 	/*
@@ -174,7 +170,7 @@ func updatePassword(response http.ResponseWriter, request *http.Request) {
 		}
 
 
-		Decode this json file into an instance of Credentials. 
+		Decode this json file into an instance of Credentials.
 
 		The password in the JSON file is the new password they want to replace the old password with.
 
