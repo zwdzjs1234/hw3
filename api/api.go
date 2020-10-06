@@ -13,7 +13,7 @@ import (
 //See credentials.go
 
 /*YOUR CODE HERE*/
-arr := []Credentials{}
+var arr []Credentials
 
 
 func RegisterRoutes(router *mux.Router) error {
