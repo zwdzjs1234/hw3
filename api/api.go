@@ -89,7 +89,7 @@ func getJSON(response http.ResponseWriter, request *http.Request) {
 	/*YOUR CODE HERE*/
 	credential := Credentials{}
 	err := json.NewDecoder(request.Body).Decode(&credential)
-	if err != nil {
+	if err != nil || credential.Username == "" || credential.Password == "" {
 		http.Error(response, err.Error(), http.StatusBadRequest)
 		return
 	}
@@ -115,6 +115,14 @@ func signup(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
+	credential := Credentials{}
+	err := json.NewDecoder(request.Body).Decode(&credential)
+	if err != nil {
+		http.Error(response, err.Error(), http.StatusBadRequest)
+		return
+	}
+	arr = append(arr, credential)
+
 }
 
 func getIndex(response http.ResponseWriter, request *http.Request) {
@@ -137,6 +145,12 @@ func getIndex(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
+	credential := Credentials{}
+	err := json.NewDecoder(request.Body).Decode(&credential)
+	if err != nil {
+		http.Error(response, err.Error(), http.StatusBadRequest)
+		return
+	}
 }
 
 func getPassword(response http.ResponseWriter, request *http.Request) {
@@ -157,6 +171,7 @@ func getPassword(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
+
 }
 
 func updatePassword(response http.ResponseWriter, request *http.Request) {
