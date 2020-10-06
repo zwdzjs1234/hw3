@@ -13,7 +13,7 @@ import (
 //See credentials.go
 
 /*YOUR CODE HERE*/
-arr := []credentials{}
+arr := []Credentials
 
 
 func RegisterRoutes(router *mux.Router) error {
@@ -89,13 +89,13 @@ func getJSON(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
-	credential := credentials()
+	credential := Credentials()
 	err := json.NewDecoder(request.Body).Decode(&credential)
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusBadRequest)
 	}
-	fmt.fprintf(response, strconv.Itoa(credential.username), "\n")
-	fmt.fprintf(response, strconv.Itoa(credential.passowrd), "\n")
+	fmt.fprintf(response, strconv.Itoa(Credential.username), "\n")
+	fmt.fprintf(response, strconv.Itoa(Credential.passowrd), "\n")
 }
 
 func signup(response http.ResponseWriter, request *http.Request) {
