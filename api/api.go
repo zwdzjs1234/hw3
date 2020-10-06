@@ -93,7 +93,7 @@ func getJSON(response http.ResponseWriter, request *http.Request) {
 		http.Error(response, err.Error(), http.StatusBadRequest)
 		return
 	} else if credential.Username == "" || credential.Password == "" {
-		http.Error(response, err.Error(), http.StatusBadRequest)
+		http.Error(response, "Empty input", http.StatusBadRequest)
 		return
 	}
 	fmt.Fprintf(response, credential.Username+"\n")
