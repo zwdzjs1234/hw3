@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -161,6 +162,13 @@ func getIndex(response http.ResponseWriter, request *http.Request) {
 		http.Error(response, "Empty input", http.StatusBadRequest)
 		return
 	}
+	for i, s := range arr {
+		if s.Username == credential.Username {
+			fmt.Fprintf(response, strconv.Itoa(i))
+			return
+		}
+	}
+	http.Error(response, "Cannot find username", http.StatusBadRequest)
 }
 
 func getPassword(response http.ResponseWriter, request *http.Request) {
