@@ -123,8 +123,12 @@ func signup(response http.ResponseWriter, request *http.Request) {
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusBadRequest)
 		return
+	} else if credential.Username == "" || credential.Password == "" {
+		http.Error(response, "Empty input", http.StatusBadRequest)
+		return
 	}
 	arr = append(arr, credential)
+	response.WriteHeader(http.StatusCreated)
 
 }
 
@@ -152,6 +156,9 @@ func getIndex(response http.ResponseWriter, request *http.Request) {
 	err := json.NewDecoder(request.Body).Decode(&credential)
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusBadRequest)
+		return
+	} else if credential.Username == "" {
+		http.Error(response, "Empty input", http.StatusBadRequest)
 		return
 	}
 }
