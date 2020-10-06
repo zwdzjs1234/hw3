@@ -232,15 +232,15 @@ func updatePassword(response http.ResponseWriter, request *http.Request) {
 	err := json.NewDecoder(request.Body).Decode(&credential)
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusBadRequest)
-
+		return
 	} else if credential.Username == "" {
 		http.Error(response, "Empty input", http.StatusBadRequest)
-
+		return
 	}
 	for _, s := range arr {
 		if s.Username == credential.Username {
 			s.Password = credential.Password
-
+			return
 		}
 	}
 	http.Error(response, "Cannot find username", http.StatusBadRequest)
