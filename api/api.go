@@ -189,7 +189,22 @@ func getPassword(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
-
+	credential := Credentials{}
+	err := json.NewDecoder(request.Body).Decode(&credential)
+	if err != nil {
+		http.Error(response, err.Error(), http.StatusBadRequest)
+		return
+	} else if credential.Username == "" {
+		http.Error(response, "Empty input", http.StatusBadRequest)
+		return
+	}
+	for _, s := range arr {
+		if s.Username == credential.Username {
+			fmt.Fprintf(response, s.Password)
+			return
+		}
+	}
+	http.Error(response, "Cannot find username", http.StatusBadRequest)
 }
 
 func updatePassword(response http.ResponseWriter, request *http.Request) {
@@ -213,6 +228,22 @@ func updatePassword(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
+	credential := Credentials{}
+	err := json.NewDecoder(request.Body).Decode(&credential)
+	if err != nil {
+		http.Error(response, err.Error(), http.StatusBadRequest)
+		return
+	} else if credential.Username == "" {
+		http.Error(response, "Empty input", http.StatusBadRequest)
+		return
+	}
+	for _, s := range arr {
+		if s.Username == credential.Username {
+			s.Password = credential.Password
+			return
+		}
+	}
+	http.Error(response, "Cannot find username", http.StatusBadRequest)
 }
 
 func deleteUser(response http.ResponseWriter, request *http.Request) {
@@ -238,4 +269,20 @@ func deleteUser(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
+	credential := Credentials{}
+	err := json.NewDecoder(request.Body).Decode(&credential)
+	if err != nil {
+		http.Error(response, err.Error(), http.StatusBadRequest)
+		return
+	} else if credential.Username == "" {
+		http.Error(response, "Empty input", http.StatusBadRequest)
+		return
+	}
+	for i, s := range arr {
+		if s.Username == credential.Username {
+			arr = append(arr[:i], arr[i+1:]...)
+			return
+		}
+	}
+	http.Error(response, "Cannot find username", http.StatusBadRequest)
 }
