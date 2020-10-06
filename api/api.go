@@ -89,7 +89,10 @@ func getJSON(response http.ResponseWriter, request *http.Request) {
 	/*YOUR CODE HERE*/
 	credential := Credentials{}
 	err := json.NewDecoder(request.Body).Decode(&credential)
-	if err != nil || credential.Username == "" || credential.Password == "" {
+	if err != nil {
+		http.Error(response, err.Error(), http.StatusBadRequest)
+		return
+	} else if credential.Username == "" || credential.Password == "" {
 		http.Error(response, err.Error(), http.StatusBadRequest)
 		return
 	}
